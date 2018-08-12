@@ -1,0 +1,20 @@
+The compositor API provides a way to quickly render a stack of windows in a managed Z-order.
+
+Functions in the compositor API:
+compositor.new( target )
+
+Compositor instances returned by compositor.new have the following fields and methods:
+c.bufferStack -- table containing individual framebuffer instances (see framebuffer help)
+c.target -- redirect target to render output on
+c.currentBuffer -- latest rendered output
+c.deferDraw -- true to allow only forced draws, prevent drawing on changes
+c.locked -- table containing counts of layers locked to front and back of buffer stack
+c:newBuffer( pid ) -- generates a new framebuffer instance and adds it to the buffer stack, then returns a redirect object that will draw into that buffer
+c:draw( mode ) -- forces the compositor to render and output the result; if mode is "cursor" only updates the cursor position and blink state
+c:toFront( pos ) -- moves the buffer in the specified position to the front-most unlocked slot
+c:toBack( pos ) -- moves the buffer in the specified position to the rear-most unlocked slot
+c:lockToFront( pos ) -- moves the buffer in the specified position to the front-most unlocked slot and locks the slot
+c:lockToBack( pos ) -- moves the buffer in the specified position to the rear-most unlocked slot and locks the slot
+c:unlock( pos ) -- moves the buffer in the specified position to the last locked slot (either front or back) and unlocks the slot
+c:removeBuffer( buffer ) -- finds the specified buffer in the stack and removes it, if present.
+c:removePid( pid ) -- finds a buffer matching the specified pid in the stack and removes it, if present.

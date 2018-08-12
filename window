@@ -1,0 +1,34 @@
+The window API included in LyqydOS provides a way for programs to create and manage decorated windows.
+
+Functions in the window API:
+window.new( w, h, x, y, caption, [target] ) -- creates a new window with specified width, height, and caption (on title bar); if a target is specified, the window renders into that redirect target
+window.active() -- gets the window object considered "active" in the process API, if present
+window.create( parent, x, y, w, h, visible ) -- provides compatibility with built-in window API; creates window objects with the CraftOS window methods tacked on
+
+Window instances returned by window.new have the following fields and methods:
+w.caption
+w.windowType -- clean, window or modal; determines which title bar controls to draw
+w.theme -- theme to use to draw window decorations
+w.mode -- normal, ephemeral or modal
+w.decorations
+w.borderless
+w.minimizable
+w.resizable
+w.movable
+w.closable
+w.deferDraw -- true to allow only forced draws, prevent drawing on changes
+w:draw( mode ) -- if mode is "cursor" only updates the cursor position and blink state
+w:move( x, y ) -- coordinates specify new top-left coordinate of window
+w:resize( w, h ) -- specify new size including decorations
+w:destroy() -- removes the window from the compositor found at process.compositor
+w:setTheme( name ) -- sets the window's theme from a name in the theme API
+w:setDecorations( decor ) -- sets the window's theme from a raw decoration table
+w:maximize() -- sets window to full size of output
+w:minimize() -- causes window to draw nothing to output
+w:fullscreen() -- sets window to full size and borderless
+w:unMinimize()
+w:restore() -- returns window to "normal" size and forces border
+w:setType( type ) -- changes windowType field and updates decoration
+w:setMode( mode )
+w:setCaption( caption )
+w:setBorderless( borderless )
